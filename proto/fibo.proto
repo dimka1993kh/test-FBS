@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package grpc;
+option go_package = "/;fibo";
+
+service FiboService {
+  // Sends a greeting
+  rpc GetFibo (FiboRequest) returns (FigoResponse) {}
+}
+
+message FiboRequest {
+  // Первый порядковый номер числоа Фибоначчи.
+  string x = 1;
+  // Второй порядковый номер числоа Фибоначчи.
+  string y = 2;
+}
+
+message FigoResponse {
+  // Ответ в виде списка чисел Фибоначчи.
+  repeated uint64 response = 1;
+}
