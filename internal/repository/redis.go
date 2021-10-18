@@ -17,7 +17,7 @@ type RedisInterface interface {
 
 type Config struct {
 	Host     string `env:"REDIS_HOST" envDefault:"0.0.0.0"`
-	Port     string `env:"REDIS_PORT" envDefault:"6379"`
+	Port     string `env:"REDIS_PORT" envDefault:"1000"`
 	Password string `env:"REDIS_PASSWORD" envDefault:""`
 	DB       int    `env:"DEFAULT_DB" envDefault:"0"`
 }

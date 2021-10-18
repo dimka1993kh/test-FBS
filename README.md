@@ -33,7 +33,7 @@ make proto && make build && ./main run_grpc_server
 |HTTP_HOST|0.0.0.0|Хост HTTP сервера|----|
 |HTTP_PORT|1002|Порт HTTP сервера|----|
 |REDIS_HOST|0.0.0.0|Хост Redis|----|
-|REDIS_PORT|6379|Порт Redis|----|
+|REDIS_PORT|1000|Порт Redis|----|
 |REDIS_PASSWORD|""|Пароль для подключения к Redis|----|
 |DEFAULT_DB|0|Стандартная база данных Redis|----|
 

@@ -116,6 +116,3 @@ func New(cfg *Config) *Service {
 		repositpry: cfg.Repository,
 	}
 }
-
-// Todo: покрыть тестами
-// Todo: написать ридми
