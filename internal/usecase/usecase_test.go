@@ -16,7 +16,7 @@ func TestService_Fib(t *testing.T) {
 		y := "4"
 
 		got, err := service.Fib(ctx, x, y)
-		require.Equal(t, err.Error(), "ошибка Х: Х должно быть числом")
+		require.Equal(t, err.Error(), "error: Х должно быть целым числом")
 		require.Nil(t, got)
 	})
 
@@ -27,37 +27,37 @@ func TestService_Fib(t *testing.T) {
 		y := ""
 
 		got, err := service.Fib(ctx, x, y)
-		require.Equal(t, err.Error(), "ошибка Y: Y должно быть числом")
+		require.Equal(t, err.Error(), "error: Y должно быть целым числом")
 		require.Nil(t, got)
 	})
 
-	t.Run("wrong serial number", func(t *testing.T) {
+	t.Run("wrong serial number X", func(t *testing.T) {
 		service, _ := GetService(t)
 		ctx := context.Background()
-		x := "0"
+		x := "-1"
 		y := "4"
 
 		got, err := service.Fib(ctx, x, y)
-		require.Equal(t, err.Error(), "порядковый номер должен быть больше 0")
+		require.Equal(t, err.Error(), "error: порядковый номер X должен быть больше или равен 0")
 		require.Nil(t, got)
 	})
 
-	t.Run("wrong serial number", func(t *testing.T) {
+	t.Run("wrong serial number Y", func(t *testing.T) {
 		service, _ := GetService(t)
 		ctx := context.Background()
 		x := "0"
-		y := "4"
+		y := "-1"
 
 		got, err := service.Fib(ctx, x, y)
-		require.Equal(t, err.Error(), "порядковый номер должен быть больше 0")
+		require.Equal(t, err.Error(), "error: порядковый номер Y должен быть больше или равен 0")
 		require.Nil(t, got)
 	})
 
 	t.Run("ok (with redis)", func(t *testing.T) {
 		service, mockRepo := GetService(t)
 		ctx := context.Background()
-		x := "1"
-		y := "5"
+		x := "0"
+		y := "4"
 		want := []uint64{0, 1, 1, 2, 3}
 
 		mockRepo.EXPECT().HGet(ctx, "2").Return("1", nil)
@@ -72,8 +72,8 @@ func TestService_Fib(t *testing.T) {
 	t.Run("ok (without redis)", func(t *testing.T) {
 		service, mockRepo := GetService(t)
 		ctx := context.Background()
-		x := "1"
-		y := "5"
+		x := "0"
+		y := "4"
 		want := []uint64{0, 1, 1, 2, 3}
 
 		mockRepo.EXPECT().HGet(ctx, "2").Return("", errors.New("some"))

@@ -19,7 +19,6 @@ test:
 .PHONY: uo_local
 up_local:
 	docker-compose -f build/docker-compose.yaml up -d
-	make proto
 
 .PHONY: build
 build:

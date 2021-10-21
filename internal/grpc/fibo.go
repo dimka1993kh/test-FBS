@@ -19,7 +19,7 @@ func NewFiboService(usecase usecase.IUsecase) *FiboService {
 }
 
 func (f *FiboService) GetFibo(ctx context.Context, in *fibo.FiboRequest) (*fibo.FigoResponse, error) {
-	response, err := f.usecase.Fib(ctx, in.GetX(), in.GetY())
+	response, err := f.usecase.Fib(ctx, in.X, in.Y)
 	if err != nil {
 		return nil, err
 	}

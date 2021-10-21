@@ -15,7 +15,7 @@ func GetService(t *testing.T) (usecase *us.Hendler, rep *mocks.MockIUsecase) {
 
 	mockHedler := mocks.NewMockIUsecase(ctrl)
 
-	service := us.NewHedler(mockHedler)
+	service := us.NewHandler(mockHedler)
 
 	return service, mockHedler
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/caarlos0/env/v6"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type Server struct {
@@ -45,6 +46,7 @@ func (s *Server) Run(usecase usecase.IUsecase) {
 	instance := NewFiboService(usecase)
 
 	fibo.RegisterFiboServiceServer(server, instance)
+	reflection.Register(server)
 
 	listener, err := net.Listen("tcp", ":"+s.port)
 	if err != nil {

@@ -1,6 +1,7 @@
 package http
 
 import (
+	"encoding/json"
 	"net"
 	"net/http"
 
@@ -43,7 +44,7 @@ func NewServer(cfg *Config) *Server {
 
 func (s *Server) Run(usecase usecase.IUsecase) error {
 	http.Handle("/", s.router)
-	s.router.HandleFunc("/api/v1/fibo", NewHedler(usecase).FiboHandler)
+	s.router.HandleFunc("/api/v1/fibo", NewHandler(usecase).FiboHandler)
 
 	log.Logger.Info().Msgf("Server is listening on port %s", s.port)
 
@@ -53,4 +54,10 @@ func (s *Server) Run(usecase usecase.IUsecase) error {
 	}
 
 	return nil
+}
+
+func ResponseJSON(w http.ResponseWriter, msg interface{}, code int) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	_ = json.NewEncoder(w).Encode(msg)
 }

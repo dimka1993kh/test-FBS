@@ -33,24 +33,28 @@ type Service struct {
 func (s *Service) Fib(ctx context.Context, x, y string) ([]uint64, error) {
 	newX, err := strconv.Atoi(x)
 	if err != nil {
-		return nil, errors.New("ошибка Х: Х должно быть числом")
+		return nil, errors.New("error: Х должно быть целым числом")
 	}
 
 	newY, err := strconv.Atoi(y)
 	if err != nil {
-		return nil, errors.New("ошибка Y: Y должно быть числом")
+		return nil, errors.New("error: Y должно быть целым числом")
 	}
 
-	if newX <= 0 || newY <= 0 {
-		return nil, errors.New("порядковый номер должен быть больше 0")
+	if newX < 0 {
+		return nil, errors.New("error: порядковый номер X должен быть больше или равен 0")
 	}
 
-	if newX == 1 && newY == 2 {
+	if newY < 0 {
+		return nil, errors.New("error: порядковый номер Y должен быть больше или равен 0")
+	}
+
+	if newX == 0 && newY == 1 {
 		return []uint64{0, 1}, nil
 	}
 
 	if newX >= newY {
-		return nil, errors.New("error: x > y")
+		return nil, errors.New("error: x больше или равен y")
 	}
 
 	res := make([]uint64, 0, newY-newX)
@@ -68,7 +72,6 @@ func (s *Service) fiboNumber(ctx context.Context, serialNumber int) uint64 {
 	var redisNumber bool
 
 	res := []uint64{0, 1}
-	serialNumber--
 
 	if serialNumber == 0 {
 		return 0
