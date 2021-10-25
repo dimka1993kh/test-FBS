@@ -2,9 +2,9 @@ package usecase_test
 
 import (
 	"context"
-	"errors"
 	"testing"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/stretchr/testify/require"
 )
 
@@ -76,11 +76,11 @@ func TestService_Fib(t *testing.T) {
 		y := "4"
 		want := []uint64{0, 1, 1, 2, 3}
 
-		mockRepo.EXPECT().HGet(ctx, "2").Return("", errors.New("some"))
+		mockRepo.EXPECT().HGet(ctx, "2").Return("", redis.Nil)
 		mockRepo.EXPECT().HSet(ctx, "2", uint64(1)).Return(nil)
-		mockRepo.EXPECT().HGet(ctx, "3").Return("", errors.New("some"))
+		mockRepo.EXPECT().HGet(ctx, "3").Return("", redis.Nil)
 		mockRepo.EXPECT().HSet(ctx, "3", uint64(2)).Return(nil)
-		mockRepo.EXPECT().HGet(ctx, "4").Return("", errors.New("some"))
+		mockRepo.EXPECT().HGet(ctx, "4").Return("", redis.Nil)
 		mockRepo.EXPECT().HSet(ctx, "4", uint64(3)).Return(nil)
 
 		got, err := service.Fib(ctx, x, y)
